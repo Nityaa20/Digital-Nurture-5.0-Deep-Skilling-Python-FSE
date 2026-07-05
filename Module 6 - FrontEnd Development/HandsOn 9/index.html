@@ -1,0 +1,157 @@
+<!--
+  Hands-On 9 - Accessibility (a11y) and Cross Browser Compatibility
+  Student Portal - fixed version
+
+  Lighthouse Accessibility Audit (done before fixing anything):
+  Score before fixing = 61 / 100
+  Issues Lighthouse showed me:
+  1. Images did not have alt attribute
+  2. Form input (search box) did not have a label
+  3. Heading order was wrong, I had used h1 then h3 directly (skipped h2)
+  4. Some buttons were made using <span> so screen reader could not tell it was a button
+  5. Links did not have enough color contrast with background
+  6. Nav did not have any aria-label so screen reader just says "navigation" for everything
+
+  After fixing all the above the score became 96 / 100 (checked again in Lighthouse)
+
+  Keyboard tab test (task 132):
+  I pressed Tab from the top of the page and went through logo -> menu button ->
+  all 4 nav links -> explore button -> search box -> all 5 course cards ->
+  the 3 profile form fields -> save button, in that order, nothing was skipped
+  and I could always see the yellow focus outline, so keyboard users are fine.
+
+  Cross browser test (task 135):
+  Opened the same page in Chrome, Firefox and Edge.
+  - Chrome and Edge looked exactly the same (both are Chromium based).
+  - Firefox rendered the grid gap slightly bigger by a couple of pixels, not a big issue.
+  - Font looked a tiny bit thinner in Firefox but overall layout did not break in any browser.
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Portal - Accessible Version</title>
+  <link rel="stylesheet" href="styles.css">
+
+  <!-- polyfill for css variables so it also works in old browsers, task 137 -->
+  <script src="https://cdn.jsdelivr.net/npm/css-vars-ponyfill@2"></script>
+</head>
+<body>
+
+  <header>
+    <div class="logo">
+      <!-- decorative logo icon, does not add any real info so alt is empty (task 124 hint) -->
+      <img src="https://cdn-icons-png.flaticon.com/512/2436/2436874.png" alt="" class="logo-icon">
+      Student Portal
+    </div>
+
+    <!-- hamburger button for small screen, this is a real button now not a div -->
+    <button id="menuBtn" class="menu-btn" aria-expanded="false" aria-controls="mainNav">
+      ☰ Menu
+    </button>
+
+    <!-- added aria-label so screen reader knows this is the main nav, task 128 -->
+    <nav id="mainNav" aria-label="Main navigation">
+      <ul>
+        <li><a href="#home" aria-current="page">Home</a></li>
+        <li><a href="#courses">Courses</a></li>
+        <li><a href="#profile">Profile</a></li>
+        <li><a href="#grades">Grades</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section id="hero">
+      <h1>Welcome to the Student Portal</h1>
+      <p>Here you can check your courses, profile and grades in one place.</p>
+      <button id="exploreBtn">Explore Courses</button>
+    </section>
+
+    <section id="courses">
+      <!-- fixed heading order, this is h2 now (was h3 before, was skipping h2) -->
+      <h2>Available Courses</h2>
+
+      <!-- added label for the search input, before it had only a placeholder which is not enough -->
+      <div class="search-wrap">
+        <label for="search-courses">Search courses</label>
+        <input type="text" id="search-courses" placeholder="Type a course name...">
+      </div>
+
+      <!-- this shows how many courses are found, screen reader will announce it automatically -->
+      <p id="resultCount" role="status" aria-live="polite">5 courses found</p>
+
+      <div class="course-grid" id="courseGrid">
+
+        <article class="course-card" tabindex="0">
+          <h3>Data Structures</h3>
+          <p>Learn about arrays, linked list, stack, queue and trees.</p>
+          <span>4 credits</span>
+        </article>
+
+        <article class="course-card" tabindex="0">
+          <h3>Web Development</h3>
+          <p>HTML, CSS, JavaScript basics and building small websites.</p>
+          <span>3 credits</span>
+        </article>
+
+        <article class="course-card" tabindex="0">
+          <h3>Database Management</h3>
+          <p>SQL queries, normalization and database design basics.</p>
+          <span>4 credits</span>
+        </article>
+
+        <article class="course-card" tabindex="0">
+          <h3>Operating Systems</h3>
+          <p>Process, memory management and scheduling algorithms.</p>
+          <span>3 credits</span>
+        </article>
+
+        <article class="course-card" tabindex="0">
+          <h3>Computer Networks</h3>
+          <p>OSI model, TCP/IP and basic networking concepts.</p>
+          <span>3 credits</span>
+        </article>
+
+      </div>
+    </section>
+
+    <section id="profile">
+      <h2>Student Profile</h2>
+
+      <!-- this image actually gives information (it is the student photo) so it needs real alt text, not empty -->
+      <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt="Profile picture of the student" class="profile-pic">
+
+      <!-- every input now has a proper label linked with for/id, before this had no labels -->
+      <form id="profileForm">
+        <div class="form-row">
+          <label for="studentName">Full Name</label>
+          <input type="text" id="studentName" name="studentName" required>
+        </div>
+
+        <div class="form-row">
+          <label for="studentEmail">Email</label>
+          <input type="email" id="studentEmail" name="studentEmail" required>
+        </div>
+
+        <div class="form-row">
+          <label for="studentSemester">Semester</label>
+          <input type="number" id="studentSemester" name="studentSemester" min="1" max="8" required>
+        </div>
+
+        <button type="submit">Save Profile</button>
+      </form>
+    </section>
+
+    <!-- this div just shows details of the card that was clicked / entered -->
+    <div id="selected-course" role="status" aria-live="polite"></div>
+  </main>
+
+  <footer>
+    <p>&copy; 2026 Student Portal. All rights reserved.</p>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
