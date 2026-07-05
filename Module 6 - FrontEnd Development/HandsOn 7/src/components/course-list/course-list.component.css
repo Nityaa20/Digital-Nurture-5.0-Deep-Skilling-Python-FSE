@@ -1,0 +1,10 @@
+.courses input {
+  padding: 5px;
+  margin: 10px 0;
+  width: 200px;
+}
+
+.course-grid {
+  display: flex;
+  flex-wrap: wrap;
+}

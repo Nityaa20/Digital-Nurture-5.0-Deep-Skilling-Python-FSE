@@ -1,0 +1,12 @@
+.header {
+  background-color: lightgray;
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.header a {
+  margin-left: 15px;
+  text-decoration: none;
+  color: black;
+}

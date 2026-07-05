@@ -1,0 +1,16 @@
+.profile {
+  max-width: 300px;
+}
+
+.profile input {
+  display: block;
+  margin-bottom: 5px;
+  padding: 5px;
+  width: 100%;
+}
+
+.error {
+  color: red;
+  font-size: 12px;
+  margin: 0 0 10px 0;
+}

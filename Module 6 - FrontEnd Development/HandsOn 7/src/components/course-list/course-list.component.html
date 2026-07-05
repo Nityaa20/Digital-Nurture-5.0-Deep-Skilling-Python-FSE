@@ -1,0 +1,23 @@
+<div class="courses">
+  <h2>Courses</h2>
+
+  <input
+    type="text"
+    placeholder="Search..."
+    [(ngModel)]="searchText"
+    (keyup)="onSearchChange()">
+
+  <p *ngIf="isLoading">Loading...</p>
+
+  <p *ngIf="!isLoading && coursesToShow.length === 0">No courses found</p>
+
+  <div class="course-grid" *ngIf="!isLoading">
+    <app-course-card
+      *ngFor="let course of coursesToShow"
+      [name]="course.name"
+      [code]="course.code"
+      [credits]="course.credits"
+      [grade]="course.grade">
+    </app-course-card>
+  </div>
+</div>
