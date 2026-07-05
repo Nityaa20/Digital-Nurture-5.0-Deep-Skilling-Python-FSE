@@ -1,21 +1,11 @@
-/*
-Task 1: Project Setup & First Components
-
-Goal: Scaffold the React app and create the first reusable components.
-*/
-
-function Footer(){
-
-    return(
-
-        <footer className="footer">
-
-            <p>&copy; 2026 Student Portal. All Rights Reserved.</p>
-
-        </footer>
-
-    );
-
+// Task 63: simple functional component with a copyright line.
+function Footer() {
+  const year = new Date().getFullYear();
+  return (
+    <footer className="site-footer">
+      <p>&copy; {year} Student Portal. All rights reserved.</p>
+    </footer>
+  );
 }
 
 export default Footer;
