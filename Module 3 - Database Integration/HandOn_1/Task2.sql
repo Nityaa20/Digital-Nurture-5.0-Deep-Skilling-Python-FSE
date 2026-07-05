@@ -1,0 +1,31 @@
+-- ============================================================
+-- NORMALISATION ANALYSIS — college_db
+-- Hands-On 1, Task 2
+-- ============================================================
+
+-- 1NF COMPLIANCE:
+-- All columns in all 5 tables hold atomic (single) values.
+-- No multi-valued or composite attributes exist.
+-- Example violation avoided: storing multiple phone numbers
+-- in one field. Instead, a separate table would be used.
+-- Every table has a single-column PRIMARY KEY (AUTO_INCREMENT).
+
+-- 2NF COMPLIANCE:
+-- Single-column primary keys in students, departments, courses,
+-- professors make partial dependency impossible.
+-- In enrollments, the candidate key (student_id, course_id):
+--   - enrollment_date depends on BOTH student_id AND course_id.
+--   - grade depends on BOTH student_id AND course_id.
+--   No partial dependency exists.
+-- Schema is in 2NF.
+
+-- 3NF COMPLIANCE (enrollments table):
+-- Non-key columns: enrollment_date, grade.
+-- grade does NOT depend on enrollment_date (no transitive dep).
+-- enrollment_date does NOT depend on grade (no transitive dep).
+-- Both columns depend directly and only on the PK.
+-- Hypothetical violation: if dept_name were stored in students,
+--   student_id → department_id → dept_name (transitive dep).
+--   This is avoided by referencing departments via FK only.
+-- Schema is in 3NF.
+-- ============================================================
