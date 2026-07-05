@@ -1,44 +1,22 @@
-/*
-Task 1: Project Setup & First Components
+// Task 65: accepts name, code, credits, grade as props and renders a card.
+// Task 69: also accepts an onEnroll handler (state is lifted up to App.jsx).
+function CourseCard({ id, name, code, credits, grade, onEnroll, isEnrolled }) {
+  return (
+    <article className="course-card">
+      <h3>{name}</h3>
+      <p className="course-code">{code}</p>
+      <p>{credits} credits</p>
+      <p>Grade: {grade}</p>
 
-Goal: Scaffold the React app and create the first reusable components.
-
-Task 2: State with useState and Dynamic Lists
-
-Goal: Use useState to manage component state and render dynamic lists.
-*/
-
-function CourseCard({
-
-    id,
-    name,
-    code,
-    credits,
-    grade,
-    onEnroll
-
-}){
-
-    return(
-
-        <div className="course-card">
-
-            <h2>{name}</h2>
-
-            <p><strong>Code :</strong> {code}</p>
-
-            <p><strong>Credits :</strong> {credits}</p>
-
-            <p><strong>Grade :</strong> {grade}</p>
-
-            <button onClick={() => onEnroll(id)}>
-                Enroll
-            </button>
-
-        </div>
-
-    );
-
+      <button
+        type="button"
+        disabled={isEnrolled}
+        onClick={() => onEnroll(id)}
+      >
+        {isEnrolled ? 'Enrolled' : 'Enroll'}
+      </button>
+    </article>
+  );
 }
 
 export default CourseCard;
