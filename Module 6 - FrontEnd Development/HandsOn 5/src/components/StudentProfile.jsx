@@ -1,54 +1,77 @@
-/*
-Task 3: useEffect Hook & Lifecycle
+import { useState } from 'react';
 
-Goal: Use useEffect to fetch data and manage side effects.
-*/
+// Task 74: separate component with its OWN local state (name, email, semester).
+// This state is local because it's a UI-only form concern — it does not need
+// to be shared with any other component, so it stays here rather than being
+// lifted up to App.jsx.
+function StudentProfile({ enrolledCourses }) {
+  const [profile, setProfile] = useState({
+    name: '',
+    email: '',
+    semester: '',
+  });
 
-import { useState } from "react";
+  function handleChange(event) {
+    const { name, value } = event.target;
+    setProfile((prev) => ({ ...prev, [name]: value }));
+  }
 
-function StudentProfile() {
+  function handleSubmit(event) {
+    event.preventDefault();
+    console.log('Profile submitted:', profile);
+  }
 
-    const [name, setName] = useState("");
-    const [email, setEmail] = useState("");
-    const [semester, setSemester] = useState("");
+  return (
+    <section id="profile" className="profile-section">
+      <h2>Student Profile</h2>
 
-    return (
+      <form onSubmit={handleSubmit}>
+        <label htmlFor="name">Name</label>
+        <input
+          id="name"
+          name="name"
+          type="text"
+          value={profile.name}
+          onChange={handleChange}
+        />
 
-        <div className="profile">
+        <label htmlFor="email">Email</label>
+        <input
+          id="email"
+          name="email"
+          type="email"
+          value={profile.email}
+          onChange={handleChange}
+        />
 
-            <h2>Student Profile</h2>
+        <label htmlFor="semester">Semester</label>
+        <input
+          id="semester"
+          name="semester"
+          type="number"
+          min="1"
+          max="8"
+          value={profile.semester}
+          onChange={handleChange}
+        />
 
-            <input
-                type="text"
-                placeholder="Enter Name"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-            />
+        <button type="submit">Save Profile</button>
+      </form>
 
-            <input
-                type="email"
-                placeholder="Enter Email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-            />
-
-            <input
-                type="number"
-                placeholder="Semester"
-                value={semester}
-                onChange={(e) => setSemester(e.target.value)}
-            />
-
-            <h3>Entered Details</h3>
-
-            <p>Name : {name}</p>
-            <p>Email : {email}</p>
-            <p>Semester : {semester}</p>
-
-        </div>
-
-    );
-
+      <h3>Enrolled Courses ({enrolledCourses.length})</h3>
+      {enrolledCourses.length === 0 ? (
+        <p>You haven't enrolled in any courses yet.</p>
+      ) : (
+        <ul>
+          {enrolledCourses.map((course) => (
+            <li key={course.id}>
+              {course.name} ({course.code}) — {course.credits} credits
+            </li>
+          ))}
+        </ul>
+      )}
+    </section>
+  );
 }
 
 export default StudentProfile;
