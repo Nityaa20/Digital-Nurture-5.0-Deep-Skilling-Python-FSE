@@ -1,0 +1,80 @@
+<!--
+Task 1: Promises and async/await
+
+Goal: Understand Promise chaining and rewrite it using async/await for cleaner code.
+
+Task 2: Fetch API with Error Handling
+
+Goal: Build a robust data-fetching layer with proper error handling and UI feedback.
+
+Task 3: Introduction to Axios
+
+Goal: Compare Fetch with Axios and use Axios for API calls.
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Student Portal</title>
+
+    <link rel="stylesheet" href="styles.css">
+
+</head>
+
+<body>
+
+<header>
+
+    <h1>Student Portal</h1>
+
+</header>
+
+<main>
+
+<section id="courses">
+
+    <h2>Courses</h2>
+
+    <p id="loading">Loading courses...</p>
+
+    <div id="course-list"></div>
+
+</section>
+
+<section id="notifications">
+
+    <h2>Notifications</h2>
+
+    <div id="spinner" class="spinner hidden"></div>
+
+    <div id="notification-list"></div>
+
+    <p id="error-message"></p>
+
+    <button id="retry-btn" style="display:none;">
+        Retry
+    </button>
+
+</section>
+
+</main>
+
+<footer>
+
+    <p>&copy; 2026 Student Portal</p>
+
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+<script type="module" src="app.js"></script>
+
+</body>
+
+</html>
