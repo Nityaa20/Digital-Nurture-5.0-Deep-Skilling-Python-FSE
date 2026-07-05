@@ -1,0 +1,178 @@
+/*
+Task 1: Flexbox Navigation & Header Layout
+
+Goal: Use Flexbox to create a professional, aligned header and navigation bar.
+
+Task 2: CSS Grid Course Card Layout
+
+Goal: Use CSS Grid to build a responsive multi-column course card layout.
+
+Task 3: Responsive Design with Media Queries
+
+Goal: Apply mobile-first design principles and media queries.
+*/
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:Arial,sans-serif;
+    background:#f4f6f9;
+    color:#333;
+}
+
+header{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    padding:20px;
+    background:#2c3e50;
+    color:white;
+}
+
+.logo{
+    font-size:clamp(1.5rem,3vw,2.5rem);
+    margin-bottom:15px;
+}
+
+nav ul{
+    list-style:none;
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+}
+
+nav a{
+    color:white;
+    text-decoration:none;
+    font-weight:bold;
+}
+
+#hero{
+    min-height:40vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    padding:40px 20px;
+    background:#3498db;
+    color:white;
+}
+
+#hero p{
+    margin:20px 0;
+}
+
+#hero button{
+    padding:12px 25px;
+    border:2px solid white;
+    background:white;
+    color:#3498db;
+    cursor:pointer;
+    border-radius:5px;
+}
+
+#hero button:hover{
+    background:#3498db;
+    color:white;
+}
+
+.stats{
+    display:flex;
+    flex-direction:column;
+    gap:20px;
+    padding:30px;
+}
+
+.stat{
+    background:white;
+    padding:20px;
+    text-align:center;
+    border-radius:10px;
+    box-shadow:0 2px 8px rgba(0,0,0,0.2);
+    flex:1;
+}
+
+#courses{
+    padding:40px 20px;
+}
+
+#courses h2{
+    text-align:center;
+    margin-bottom:30px;
+}
+
+.course-grid{
+    display:grid;
+    grid-template-columns:1fr;
+    gap:20px;
+}
+
+.course-card{
+    min-height:180px;
+    align-self:stretch;
+    padding:20px;
+    border:1px solid #ccc;
+    border-radius:10px;
+    background:white;
+    box-shadow:0 2px 8px rgba(0,0,0,0.2);
+}
+
+.course-card h3{
+    margin-bottom:10px;
+}
+
+.course-card p{
+    margin-bottom:10px;
+}
+
+.course-card span{
+    font-weight:bold;
+    color:#3498db;
+}
+
+footer{
+    text-align:center;
+    background:#2c3e50;
+    color:white;
+    padding:20px;
+}
+
+@media(min-width:768px){
+
+    header{
+        flex-direction:row;
+        justify-content:space-between;
+    }
+
+    nav ul{
+        flex-direction:row;
+        gap:25px;
+    }
+
+    .stats{
+        flex-direction:row;
+        justify-content:space-between;
+    }
+
+    .course-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+}
+
+@media(min-width:1024px){
+
+    #hero{
+        padding:80px 20px;
+    }
+
+    .course-grid{
+        grid-template-columns:repeat(3,1fr);
+    }
+
+}
