@@ -1,151 +1,144 @@
-/*
-Task 1: Project Setup & First Components
-
-Goal: Scaffold the React app and create the first reusable components.
-
-Task 2: State with useState and Dynamic Lists
-
-Goal: Use useState to manage component state and render dynamic lists.
-
-Task 3: useEffect Hook & Lifecycle
-
-Goal: Use useEffect to fetch data and manage side effects.
-*/
-
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
+:root {
+  --accent: #2f6f4f;
+  --bg: #f7f7f5;
+  --card-bg: #ffffff;
+  --border: #dcdcd6;
+  --text: #232323;
 }
 
-body{
-    font-family:Arial, Helvetica, sans-serif;
-    background:#f4f6f9;
-    color:#333;
+* {
+  box-sizing: border-box;
 }
 
-.header{
-    background:#2c3e50;
-    color:white;
-    padding:20px;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    flex-wrap:wrap;
+body {
+  margin: 0;
+  font-family: system-ui, Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
 }
 
-.header nav{
-    display:flex;
-    gap:20px;
+.site-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  padding: 1rem 1.5rem;
+  background: var(--card-bg);
+  border-bottom: 1px solid var(--border);
 }
 
-.header nav a{
-    text-decoration:none;
-    color:white;
-    font-weight:bold;
+.site-title {
+  font-size: 1.4rem;
+  margin: 0;
 }
 
-.header nav a:hover{
-    color:#ffd700;
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 1.25rem;
+  margin: 0;
+  padding: 0;
 }
 
-.container{
-    width:90%;
-    margin:30px auto;
+.nav-links a {
+  text-decoration: none;
+  color: var(--text);
 }
 
-.container input{
-    width:100%;
-    max-width:400px;
-    padding:10px;
-    border:1px solid #ccc;
-    border-radius:5px;
-    margin-bottom:25px;
-    font-size:16px;
+.enrolled-badge {
+  background: var(--accent);
+  color: #fff;
+  padding: 0.35rem 0.75rem;
+  border-radius: 999px;
+  font-size: 0.85rem;
 }
 
-.course-grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-    gap:20px;
-    margin-bottom:40px;
+main {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 1.5rem;
 }
 
-.course-card{
-    background:white;
-    padding:20px;
-    border-radius:10px;
-    box-shadow:0 2px 8px rgba(0,0,0,0.2);
+.courses-section input {
+  width: 100%;
+  max-width: 320px;
+  padding: 0.5rem 0.75rem;
+  margin: 0.75rem 0 1.25rem;
+  border: 1px solid var(--border);
+  border-radius: 6px;
 }
 
-.course-card h2{
-    margin-bottom:15px;
-    color:#2c3e50;
+.course-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
 }
 
-.course-card p{
-    margin-bottom:10px;
+.course-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 1rem;
 }
 
-.course-card button{
-    margin-top:10px;
-    padding:10px 20px;
-    background:#3498db;
-    color:white;
-    border:none;
-    border-radius:5px;
-    cursor:pointer;
+.course-code {
+  color: #666;
+  font-size: 0.9rem;
 }
 
-.course-card button:hover{
-    background:#2980b9;
+.course-card button {
+  margin-top: 0.75rem;
+  padding: 0.45rem 0.9rem;
+  border: none;
+  border-radius: 6px;
+  background: var(--accent);
+  color: #fff;
+  cursor: pointer;
 }
 
-.profile{
-    background:white;
-    padding:25px;
-    border-radius:10px;
-    box-shadow:0 2px 8px rgba(0,0,0,0.2);
-    margin-top:30px;
+.course-card button:disabled {
+  background: #9fb8ab;
+  cursor: default;
 }
 
-.profile h2{
-    margin-bottom:20px;
+.error-message {
+  color: #b3261e;
 }
 
-.profile input{
-    display:block;
-    width:100%;
-    max-width:500px;
-    margin-bottom:15px;
+.profile-section {
+  margin-top: 2.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border);
 }
 
-.profile p{
-    margin-top:10px;
+.profile-section form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  max-width: 320px;
 }
 
-.footer{
-    background:#2c3e50;
-    color:white;
-    text-align:center;
-    padding:20px;
-    margin-top:40px;
+.profile-section input {
+  padding: 0.4rem 0.6rem;
+  border: 1px solid var(--border);
+  border-radius: 6px;
 }
 
-@media(max-width:768px){
+.profile-section button[type='submit'] {
+  align-self: flex-start;
+  margin-top: 0.5rem;
+  padding: 0.45rem 0.9rem;
+  border: none;
+  border-radius: 6px;
+  background: var(--accent);
+  color: #fff;
+  cursor: pointer;
+}
 
-    .header{
-        flex-direction:column;
-        gap:15px;
-        text-align:center;
-    }
-
-    .header nav{
-        flex-direction:column;
-    }
-
-    .course-grid{
-        grid-template-columns:1fr;
-    }
-
+.site-footer {
+  text-align: center;
+  padding: 1.5rem;
+  color: #666;
+  font-size: 0.9rem;
 }
