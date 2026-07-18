@@ -10,13 +10,13 @@
 
 **Scenario applied throughout:** *"Test that `POST /api/courses/` returns 201 with the correct course data when valid input is provided."*
 
-1. **Repeatability** — Will this test be run many times (e.g., on every commit or every regression cycle)? Applied: Yes — this is a core CRUD operation that will be re-verified every time the API changes, making it a strong automation candidate.
+1. **Repeatability** — Will this test be run many times (e.g., on every commit or every regression cycle)? Applied: Yes this is a core CRUD operation that will be re-verified every time the API changes, making it a strong automation candidate.
 
 2. **Stability of the feature** — Is the feature's behavior/UI unlikely to change frequently? Applied: The `POST /api/courses/` contract (fields, response format) is a foundational, stable part of the API, so automating it won't require constant script maintenance.
 
-3. **High business risk if it breaks** — Does failure have significant impact? Applied: Course creation is a core business function; if this endpoint breaks, admins cannot add any courses, so it's high-value to catch failures immediately via automation.
+3. **High business risk if it breaks** — Does failure have significant impact? Applied: Course creation is a core business function; if this endpoint breaks, admins cannot add any courses, so it's high value to catch failures immediately via automation.
 
-4. **Time savings vs. manual effort** — Does automating save significant time over repeated manual execution? Applied: Manually testing this via a REST client every time takes a few minutes; an automated test runs in milliseconds and can run in every CI pipeline execution — clear time savings at scale.
+4. **Time savings vs. manual effort** — Does automating save significant time over repeated manual execution? Applied: Manually testing this via a REST client every time takes a few minutes; an automated test runs in milliseconds and can run in every CI pipeline execution clear time savings at scale.
 
 5. **Objective, deterministic pass/fail criteria** — Can the result be verified programmatically without human judgment? Applied: Yes — asserting `status_code == 201` and validating the JSON response body against expected values is fully deterministic and requires no subjective human evaluation.
 
@@ -41,7 +41,7 @@
 - Maintenance overhead: 20% of automated run time, added *after* the 10th run
 
 **Calculation (without maintenance overhead, runs 1–10):**
-- Time saved per automated run vs manual = 0.5 hours (since an automated run is effectively near-instant/negligible compared to manual — but to be conservative and consistent with the numbers given, we compare cumulative manual cost vs the 4-hour investment)
+- Time saved per automated run vs manual = 0.5 hours (since an automated run is effectively near-instant/negligible compared to manual but to be conservative and consistent with the numbers given, we compare cumulative manual cost vs the 4-hour investment)
 - Break-even point: `4 hours ÷ 0.5 hours per manual run = 8 runs`
 - **After 8 runs, the manual time saved equals the 4-hour investment. From run 9 onward, automation is pure savings.**
 
@@ -56,7 +56,7 @@
 
 **Definition:** A flaky test is a test that produces inconsistent results (sometimes pass, sometimes fail) across multiple runs *without any actual change to the code being tested* — the failure is caused by the test itself (timing, environment, test data) rather than a real defect.
 
-**Example:** A Selenium test that clicks a "Submit" button immediately after the page loads, without waiting for a dynamically-rendered JavaScript element to become clickable. On a fast machine/network it passes; on a slower run it fails with an "element not interactable" error — even though the application itself has no bug.
+**Example:** A Selenium test that clicks a "Submit" button immediately after the page loads, without waiting for a dynamically-rendered JavaScript element to become clickable. On a fast machine/network it passes; on a slower run it fails with an "element not interactable" error even though the application itself has no bug.
 
 **Three Strategies to Prevent/Fix Flaky Tests:**
 
@@ -85,22 +85,22 @@
 - **Example use:** Separating Course Management test scripts into `login_tests.py`, `course_crud_tests.py`, and `enrollment_tests.py`, each independently maintainable.
 
 **Data-Driven Framework**
-- **Description:** Test logic is separated from test data — the same script executes multiple times against different data sets pulled from an external source (CSV, Excel, JSON, database).
-- **Advantage:** Massively increases test coverage without writing new scripts — e.g., testing course creation with 50 different valid/invalid inputs using one script.
+- **Description:** Test logic is separated from test data the same script executes multiple times against different data sets pulled from an external source (CSV, Excel, JSON, database).
+- **Advantage:** Massively increases test coverage without writing new scripts e.g., testing course creation with 50 different valid/invalid inputs using one script.
 - **Disadvantage:** Requires more upfront framework design effort (data source management, parameterization logic) and can be harder for non-technical testers to author new data sets correctly.
 - **Example use:** Testing `POST /api/courses/` with 50 rows of course data (varying credits, names, duplicate codes) stored in a CSV, run against a single parameterized test function.
 
 **Keyword-Driven Framework**
-- **Description:** Test steps are represented as "keywords" (e.g., `ClickButton`, `EnterText`, `VerifyText`) in a table/spreadsheet, which a driver script interprets and executes — abstracting the automation code away from the test design.
+- **Description:** Test steps are represented as "keywords" (e.g., `ClickButton`, `EnterText`, `VerifyText`) in a table/spreadsheet, which a driver script interprets and executes abstracting the automation code away from the test design.
 - **Advantage:** Non-technical team members (business analysts, manual testers) can design and read tests without writing code.
 - **Disadvantage:** Significant upfront investment to build the keyword-interpretation engine; can become a bottleneck since only the framework maintainers can add new keywords.
 - **Example use:** A non-technical QA lead defines a test for course creation using keywords like `EnterText | course_name_field | "Data Structures"` and `ClickButton | submit_button` in a spreadsheet.
 
 **Hybrid Framework**
-- **Description:** Combines elements of Modular, Data-Driven, and often Keyword-Driven approaches — e.g., modular reusable functions, driven by external data sets, sometimes exposed through keywords for less technical users.
+- **Description:** Combines elements of Modular, Data-Driven, and often Keyword-Driven approaches e.g., modular reusable functions, driven by external data sets, sometimes exposed through keywords for less technical users.
 - **Advantage:** Gets the best of all worlds — reusability, data coverage, and (optionally) accessibility for non-technical testers.
 - **Disadvantage:** Most complex to design and set up initially; requires disciplined framework architecture to avoid becoming an unmaintainable mess of mixed patterns.
-- **Example use:** The full Selenium + pytest + Page Object Model suite built across Hands-On 5–7 — modular page classes, data-driven parametrized tests, reusable fixtures.
+- **Example use:** The full Selenium + pytest + Page Object Model suite built across Hands-On 5–7 modular page classes, data-driven parametrized tests, reusable fixtures.
 
 ### 22. Recommended Framework for the Given Scenario
 
@@ -112,7 +112,7 @@
 - **Data-Driven** handles the 50 username/password combinations by parameterizing the login test with data pulled from a CSV/JSON file (`@pytest.mark.parametrize` reading from an external data source), rather than writing 50 separate test functions.
 - **A light Keyword-Driven layer** (optional, only if truly needed) could expose common actions like `Login`, `VerifyErrorMessage` in a simple table so non-technical team members can compose new test scenarios without touching Python code directly.
 
-This combination directly satisfies all three stated requirements — reusability, data coverage, and accessibility to mixed skill levels — which no single framework type achieves alone.
+This combination directly satisfies all three stated requirements reusability, data coverage, and accessibility to mixed skill levels which no single framework type achieves alone.
 
 ### 23. Hybrid Framework Folder Structure
 
