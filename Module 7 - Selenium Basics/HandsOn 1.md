@@ -1,6 +1,6 @@
 # Hands-On 1: QA Concepts, Functional Testing & Defect Lifecycle
 
-**Context:** Course Management API (built in earlier hands-on exercises)
+**Context:** Course Management API
 
 ---
 
