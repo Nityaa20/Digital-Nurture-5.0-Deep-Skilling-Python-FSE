@@ -1,6 +1,6 @@
 # Hands-On 3: Test Automation Process, Lifecycle & Framework Types
 
-**Context:** Course Management API (built in earlier hands-on exercises)
+**Context:** Course Management API 
 
 ---
 
