@@ -1,6 +1,6 @@
 # Hands-On 2: SDLC vs TDLC — V-Model & Agile QA Integration
 
-**Context:** Course Management API (built in earlier hands-on exercises)
+**Context:** Course Management API
 
 ---
 
