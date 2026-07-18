@@ -9,7 +9,7 @@
 ### 1. Test Cases Across Test Levels
 
 **Unit Testing** (test a single function in isolation)
-- **Test Case:** Test the `validate_course_code()` function that checks a course code matches the pattern `CS101` style (2-4 letters + 3 digits). Call the function directly with inputs like `"CS101"` (valid), `"C1"` (invalid), `"12345"` (invalid), and assert the correct boolean/exception is returned — no database or API layer involved.
+- **Test Case:** Test the `validate_course_code()` function that checks a course code matches the pattern `CS101` style (2-4 letters + 3 digits). Call the function directly with inputs like `"CS101"` (valid), `"C1"` (invalid), `"12345"` (invalid), and assert the correct boolean/exception is returned no database or API layer involved.
 
 **Integration Testing** (test two components working together)
 - **Test Case:** Test that the `POST /api/courses/` endpoint correctly writes a new course record to the database. Call the endpoint with a valid payload, then query the database directly to confirm the row exists with matching field values. This verifies the API layer and the database layer work correctly together.
@@ -35,7 +35,7 @@ Other non-functional examples worth noting: **Security** (can an unauthenticated
 
 ### 3. Black-Box vs White-Box Testing
 
-- **Black-Box Testing:** Testing the software's behavior purely from the outside — inputs and expected outputs — without any knowledge of how the code is implemented internally. The tester treats the system as a sealed box: they know *what* it should do, not *how* it does it.
+- **Black-Box Testing:** Testing the software's behavior purely from the outside inputs and expected outputs without any knowledge of how the code is implemented internally. The tester treats the system as a sealed box: they know *what* it should do, not *how* it does it.
 - **White-Box Testing:** Testing with full visibility into the internal code structure, logic branches, and data paths. The tester designs test cases to exercise specific lines, conditions, and loops in the source code.
 
 **Who performs which:** A **QA tester** typically performs black-box testing (e.g., functional, system, UAT testing) since their role is to validate behavior against requirements, not code structure. A **developer** typically performs white-box testing (e.g., unit tests, code coverage analysis) since they need direct knowledge of the code to test internal logic paths.
@@ -74,10 +74,10 @@ Other non-functional examples worth noting: **Security** (can an unauthenticated
 
 | Bug | Severity | Priority | Justification |
 |---|---|---|---|
-| (a) `POST /api/courses/` returns 500 for all requests | **Critical** | **P1** | Core functionality (creating courses) is completely broken for every user — no workaround exists. This blocks the primary use case of the API. |
-| (b) Course names >150 chars are silently truncated, no error | **Medium** | **P3** | The system doesn't crash and most course names are short, so impact is limited, but silent data loss is a real correctness problem that should be fixed — just not urgently. |
+| (a) `POST /api/courses/` returns 500 for all requests | **Critical** | **P1** | Core functionality (creating courses) is completely broken for every user no workaround exists. This blocks the primary use case of the API. |
+| (b) Course names >150 chars are silently truncated, no error | **Medium** | **P3** | The system doesn't crash and most course names are short, so impact is limited, but silent data loss is a real correctness problem that should be fixed just not urgently. |
 | (c) Typo in the `/docs` Swagger description | **Low** | **P4** | Purely cosmetic; has zero impact on functionality. Can be fixed whenever convenient. |
-| (d) Login with correct credentials occasionally returns 401 (intermittent) | **High** | **P2** (arguably P1) | Even though it doesn't fail 100% of the time, an intermittent authentication failure undermines trust in the entire login system and is hard to reproduce/debug — this instability needs urgent investigation despite not being "Critical" severity. |
+| (d) Login with correct credentials occasionally returns 401 (intermittent) | **High** | **P2** (arguably P1) | Even though it doesn't fail 100% of the time, an intermittent authentication failure undermines trust in the entire login system and is hard to reproduce/debug this instability needs urgent investigation despite not being "Critical" severity. |
 
 ### 7. Defect Report — Bug (a)
 
@@ -99,6 +99,6 @@ Other non-functional examples worth noting: **Security** (can an unauthenticated
 **Severity** measures the *impact* of the defect on the system's functionality — how badly it breaks things from a technical/functional standpoint. **Priority** measures the *urgency* with which the defect should be fixed — how soon it needs attention from a business standpoint.
 
 **Real-world example where High Severity ≠ High Priority:**
-A rarely-used "Export to PDF" feature on an internal admin reporting page crashes the entire application when clicked (High Severity — it's a full crash). However, this feature is used by only one internal employee once a month, and a manual workaround (exporting from the database directly) already exists. The team may classify this as **P3/Low Priority** because, despite the severe technical impact when it occurs, it affects almost no users and has a workaround — so fixing it can wait behind other work.
+A rarely-used "Export to PDF" feature on an internal admin reporting page crashes the entire application when clicked (High Severity — it's a full crash). However, this feature is used by only one internal employee once a month, and a manual workaround (exporting from the database directly) already exists. The team may classify this as **P3/Low Priority** because, despite the severe technical impact when it occurs, it affects almost no users and has a workaround so fixing it can wait behind other work.
 
 Conversely, a cosmetic bug where the CEO's name is misspelled on the company's public homepage is **Low Severity** (nothing is broken) but **High Priority** (P1) — it needs to be fixed immediately due to reputational/business concerns, even though it has no functional impact.
