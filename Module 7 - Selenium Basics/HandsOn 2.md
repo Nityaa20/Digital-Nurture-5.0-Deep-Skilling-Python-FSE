@@ -62,13 +62,13 @@ Each arrow represents a horizontal relationship: the development phase on the le
 
 **Acceptance Testing (UAT)**
 - **Entry Criteria:** System testing is complete and signed off; a stable build is deployed to a UAT/staging environment; UAT test cases derived from business requirements are ready; business/end users (e.g., college admins) are available to test.
-- **Exit Criteria:** All acceptance criteria (Given-When-Then scenarios) pass; business stakeholders formally sign off that the system meets their needs; no open critical defects.
+- **Exit Criteria:** All acceptance criteria (Given When Then scenarios) pass; business stakeholders formally sign off that the system meets their needs; no open critical defects.
 
 ### 12. Two Early QA Engagement Points in the V-Model
 
 1. **Requirements Review stage:** QA reviews the requirements document for the Course Management API (e.g., "admins can create/update/delete courses") *before any code is written*, checking for ambiguity, testability, and missing edge cases (e.g., "what happens on a duplicate course code?" is a question QA should raise here, not discover during system testing).
 
-2. **Architecture/System Design review stage:** QA participates in design reviews to understand how components will interact (e.g., how the API layer talks to the database, what error codes are planned for validation failures) and begins drafting Integration and System Test Plans in parallel with development — rather than waiting until code is complete to start planning tests.
+2. **Architecture/System Design review stage:** QA participates in design reviews to understand how components will interact (e.g., how the API layer talks to the database, what error codes are planned for validation failures) and begins drafting Integration and System Test Plans in parallel with development rather than waiting until code is complete to start planning tests.
 
 ---
 
@@ -76,11 +76,11 @@ Each arrow represents a horizontal relationship: the development phase on the le
 
 ### 13. Three Problems with Waterfall (Test-After) for the Course Management API
 
-1. **Defects are found late and are expensive to fix.** If a fundamental design flaw in how course codes are validated is only discovered during system testing (after all modules are coded), fixing it may require reworking the database schema, the API layer, and any dependent modules — far more costly than catching it during the requirements review.
+1. **Defects are found late and are expensive to fix.** If a fundamental design flaw in how course codes are validated is only discovered during system testing (after all modules are coded), fixing it may require reworking the database schema, the API layer, and any dependent modules far more costly than catching it during the requirements review.
 
 2. **No fast feedback loop for developers.** Developers who wrote the `POST /api/courses/` endpoint weeks or months ago have moved on to other features by the time testing starts. Context-switching back to fix defects is slow and error-prone, and they may have forgotten the original design decisions.
 
-3. **Testing becomes a bottleneck under deadline pressure.** Because all testing is compressed into a single phase at the end of the project, if development runs late (as it often does), the testing phase gets squeezed — leading to rushed, incomplete testing or a rushed release with unresolved defects.
+3. **Testing becomes a bottleneck under deadline pressure.** Because all testing is compressed into a single phase at the end of the project, if development runs late (as it often does), the testing phase gets squeezed leading to rushed, incomplete testing or a rushed release with unresolved defects.
 
 ### 14. QA's Role in Each Agile Ceremony
 
